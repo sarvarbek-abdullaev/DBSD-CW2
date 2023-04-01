@@ -52,16 +52,19 @@ namespace AdmissionSystem.Controllers
         // GET: TeacherController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var teacher = _repository.GetTeacherById(id);
+            return View(teacher);
         }
 
         // POST: TeacherController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Teacher teacher)
         {
             try
             {
+                teacher.TeacherId = id;
+                _repository.Update(teacher);
                 return RedirectToAction(nameof(Index));
             }
             catch

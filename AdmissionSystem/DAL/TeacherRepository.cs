@@ -14,11 +14,15 @@ namespace AdmissionSystem.DAL
         private const string SQL_GET_BY_ID = @"select TeacherId, FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email
                                 from Teacher
                                 where TeacherId = @TeacherId";
-        private const string SQL_UPDATE = @"update Employee set
+        private const string SQL_UPDATE = @"update Teacher set
                                               FirstName = @FirstName, 
                                               LastName  = @LastName, 
-                                              BirthDate  = @BirthDate
-                                            where EmployeeId = @EmployeeId";
+                                              BirthDate  = @BirthDate,
+                                              IsMarried  = @IsMarried,
+                                              Salary  = @Salary,
+                                              Phone  = @Phone,
+                                              Email  = @Email
+                                            where TeacherId = @TeacherId";
         private const string SQL_DELETE = @"delete from Teacher where TeacherId = @TeacherId";
 
         private string ConnStr;
@@ -120,7 +124,21 @@ namespace AdmissionSystem.DAL
 
         public void Update(Teacher teacher)
         {
-            throw new System.NotImplementedException();
+            using var conn = new SqlConnection(ConnStr);
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = SQL_UPDATE;
+
+            cmd.Parameters.AddWithValue("@FirstName", teacher.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", teacher.LastName);
+            cmd.Parameters.AddWithValue("@BirthDate", teacher.BirthDate);
+            cmd.Parameters.AddWithValue("@IsMarried", teacher.IsMarried);
+            cmd.Parameters.AddWithValue("@Salary", teacher.Salary);
+            cmd.Parameters.AddWithValue("@Phone", teacher.Phone);
+            cmd.Parameters.AddWithValue("@Email", teacher.Email);
+            cmd.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
+
+            conn.Open();
+            cmd.ExecuteNonQuery();
         }
     }
 }
