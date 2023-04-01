@@ -121,3 +121,4 @@ E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Teacher\Index.cshtml.g.cs
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Teacher\Create.cshtml.g.cs
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Teacher\Details.cshtml.g.cs
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Teacher\Delete.cshtml.g.cs

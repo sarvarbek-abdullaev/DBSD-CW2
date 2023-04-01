@@ -73,7 +73,8 @@ namespace AdmissionSystem.Controllers
         // GET: TeacherController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var teacher = _repository.GetTeacherById(id);
+            return View(teacher);
         }
 
         // POST: TeacherController/Delete/5
@@ -83,6 +84,7 @@ namespace AdmissionSystem.Controllers
         {
             try
             {
+                _repository.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
