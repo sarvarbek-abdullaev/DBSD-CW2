@@ -39,3 +39,9 @@ E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\AdmissionSystem.dl
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\AdmissionSystem.pdb
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\AdmissionSystem.genruntimeconfig.cache
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\AdmissionSystem.csproj.CopyComplete
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
