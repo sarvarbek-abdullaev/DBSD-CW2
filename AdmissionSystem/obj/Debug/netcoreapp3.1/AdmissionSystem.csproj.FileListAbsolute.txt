@@ -120,3 +120,4 @@ E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Teacher\Index.cshtml.g.cs
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Teacher\Create.cshtml.g.cs
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Teacher\Details.cshtml.g.cs

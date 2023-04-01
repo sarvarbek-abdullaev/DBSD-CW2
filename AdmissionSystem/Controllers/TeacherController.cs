@@ -23,7 +23,8 @@ namespace AdmissionSystem.Controllers
         // GET: TeacherController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var teacher = _repository.GetTeacherById(id);
+            return View(teacher);
         }
 
         // GET: TeacherController/Create

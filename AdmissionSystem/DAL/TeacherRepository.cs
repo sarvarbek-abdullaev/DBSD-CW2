@@ -11,15 +11,15 @@ namespace AdmissionSystem.DAL
         private const string SQL_INSERT = @"insert into Teacher(FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email)
                                 values(@FirstName, @LastName, @BirthDate, @IsMarried, @Salary, @Phone, @Email)
                                 select SCOPE_IDENTITY()";
-        private const string SQL_GET_BY_ID = @"select EmployeeId, FirstName, LastName, BirthDate
-                                from Employee
-                                where EmployeeId = @EmployeeId";
+        private const string SQL_GET_BY_ID = @"select TeacherId, FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email
+                                from Teacher
+                                where TeacherId = @TeacherId";
         private const string SQL_UPDATE = @"update Employee set
                                               FirstName = @FirstName, 
                                               LastName  = @LastName, 
                                               BirthDate  = @BirthDate
                                             where EmployeeId = @EmployeeId";
-        private const string SQL_DELETE = @"delete from Employee where EmployeeId = @EmployeeId";
+        private const string SQL_DELETE = @"delete from Teacher where TeacherId = @TeacherId";
 
         private string ConnStr;
 
@@ -30,7 +30,13 @@ namespace AdmissionSystem.DAL
 
         public void Delete(int Id)
         {
-            throw new System.NotImplementedException();
+            using var conn = new SqlConnection(ConnStr);
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = SQL_DELETE;
+            cmd.Parameters.AddWithValue("@TeacherId", Id);
+
+            conn.Open();
+            cmd.ExecuteNonQuery();
         }
 
         public List<Teacher> GetAll()
@@ -62,9 +68,31 @@ namespace AdmissionSystem.DAL
             return employees;
         }
 
-        public Teacher GetTeacherById(int Id)
+        public Teacher GetTeacherById(int id)
         {
-            throw new System.NotImplementedException();
+            using var conn = new SqlConnection(ConnStr);
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = SQL_GET_BY_ID;
+            cmd.Parameters.AddWithValue("@TeacherId", id);
+
+            conn.Open();
+            using var rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                //return MapReaderToEmployee(rdr);
+                var teacher = new Teacher();
+                teacher.TeacherId = rdr.GetInt32(rdr.GetOrdinal("TeacherId"));
+                teacher.FirstName = rdr.GetString("FirstName");
+                teacher.LastName = rdr.GetString("LastName");
+                teacher.BirthDate = rdr.GetDateTime("BirthDate");
+                teacher.IsMarried = rdr.GetBoolean("IsMarried");
+                teacher.Salary = rdr.GetInt32("Salary");
+                teacher.Phone = rdr.GetString("Phone");
+                teacher.Email = rdr.GetString("Email");
+                return teacher;
+            }
+
+            return null;
         }
 
         public int Insert(Teacher teacher)
