@@ -23,8 +23,16 @@ namespace AdmissionSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var database = Configuration.GetConnectionString("CW");
+
             services.AddSingleton<ITeacherRepository>(
-                r => new TeacherRepository(Configuration.GetConnectionString("CW"))
+                r => new TeacherRepository(database)
+            );
+            services.AddSingleton<IStudentRepository>(
+                r => new StudentRepository(database)
+            );
+            services.AddSingleton<IClassRepository>(
+                r => new ClassRepository(database)
             );
 
             services.AddControllersWithViews();
