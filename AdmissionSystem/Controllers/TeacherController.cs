@@ -1,4 +1,5 @@
 ﻿using AdmissionSystem.DAL;
+using AdmissionSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,10 +35,11 @@ namespace AdmissionSystem.Controllers
         // POST: TeacherController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Teacher teacher)
         {
             try
             {
+                int id = _repository.Insert(teacher);
                 return RedirectToAction(nameof(Index));
             }
             catch

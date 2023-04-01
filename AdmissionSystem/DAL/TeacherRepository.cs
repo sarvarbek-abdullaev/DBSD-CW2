@@ -77,7 +77,7 @@ namespace AdmissionSystem.DAL
             cmd.Parameters.AddWithValue("@LastName", teacher.LastName);
             cmd.Parameters.AddWithValue("@BirthDate", teacher.BirthDate);
             cmd.Parameters.AddWithValue("@IsMarried", teacher.IsMarried);
-            cmd.Parameters.AddWithValue("@Salary", teacher.IsMarried);
+            cmd.Parameters.AddWithValue("@Salary", teacher.Salary);
             cmd.Parameters.AddWithValue("@Phone", teacher.Phone);
             cmd.Parameters.AddWithValue("@Email", teacher.Email);
             //cmd.Parameters.AddWithValue("@Image", teacher.Image);
