@@ -29,6 +29,7 @@ namespace AdmissionSystem.Controllers
         // GET: ClassController/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 

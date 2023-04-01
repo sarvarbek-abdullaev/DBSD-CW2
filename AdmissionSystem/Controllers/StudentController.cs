@@ -52,6 +52,7 @@ namespace AdmissionSystem.Controllers
         public ActionResult Edit(int id)
         {
             var student = _repository.GetStudentById(id);
+
             return View(student);
         }
 
