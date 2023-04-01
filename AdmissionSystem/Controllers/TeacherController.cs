@@ -19,6 +19,18 @@ namespace AdmissionSystem.Controllers
             var teachers = _repository.GetAll();
             return View(teachers);
         }
+        public ActionResult Filter(TeacherFilterViewModel filterModel)
+        {
+            int totalRows;
+            var teachers = _repository.Filter(
+                filterModel.FirstName, filterModel.LastName,
+                out totalRows, filterModel.Page, filterModel.PageSize
+                );
+
+            filterModel.Teachers = teachers;
+
+            return View(filterModel);
+        }
 
         // GET: TeacherController/Details/5
         public ActionResult Details(int id)

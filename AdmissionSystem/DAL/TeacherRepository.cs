@@ -1,8 +1,11 @@
 ﻿using AdmissionSystem.Models;
+using Dapper;
+using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace AdmissionSystem.DAL
 {
@@ -11,9 +14,11 @@ namespace AdmissionSystem.DAL
         private const string SQL_INSERT = @"insert into Teacher(FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email)
                                 values(@FirstName, @LastName, @BirthDate, @IsMarried, @Salary, @Phone, @Email)
                                 select SCOPE_IDENTITY()";
+
         private const string SQL_GET_BY_ID = @"select TeacherId, FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email
                                 from Teacher
                                 where TeacherId = @TeacherId";
+
         private const string SQL_UPDATE = @"update Teacher set
                                               FirstName = @FirstName, 
                                               LastName  = @LastName, 
@@ -24,6 +29,15 @@ namespace AdmissionSystem.DAL
                                               Email  = @Email
                                             where TeacherId = @TeacherId";
         private const string SQL_DELETE = @"delete from Teacher where TeacherId = @TeacherId";
+
+        private const string SQL_FILTER = @"select TeacherId, FirstName, Lastname, BirthDate,
+	                                            count(*) over() TotalRowsCount
+                                            from Teacher
+                                            where FirstName like coalesce(@FirstName, '') + '%'
+	                                            and Lastname like coalesce(@Lastname, '') + '%'
+                                            order by {0}
+                                            offset @OffsetRows rows
+                                            fetch next @PageSize rows only";
 
         private string ConnStr;
 
@@ -41,6 +55,50 @@ namespace AdmissionSystem.DAL
 
             conn.Open();
             cmd.ExecuteNonQuery();
+        }
+
+        public List<Teacher> Filter(string firstname, string secondname, out int totalRows, int page = 1, int pageSize = 10, string sortColumn = "TeacherId", bool sortDesc = false)
+        {
+            //using var conn = new SqlConnection(ConnStr);
+            //var teachers = conn.Query<Teacher>(
+            //    "TeacherFilter",
+            //    commandType: System.Data.CommandType.StoredProcedure,
+            //    param: new { FirstName = firstname, LastName = secondname, OffsetRows = (page - 1) * pageSize, PageSize = pageSize }
+            //    );
+
+            //totalRows = teachers.FirstOrDefault()?.TotalRowsCount ?? 0;
+
+            //return teachers.AsList();
+
+            if (page <= 0)
+                page = 1;
+
+            var sort = "TeacherId";
+            if ("TeacherId".Equals(sortColumn))
+                sort = "TeacherId";
+            else if ("FirstName".Equals(sortColumn))
+                sort = "FirstName";
+
+            if (sortDesc)
+                sort += " DESC ";
+
+            string sql = string.Format(SQL_FILTER, sort);
+
+            using var conn = new SqlConnection(ConnStr);
+            var teachers = conn.Query<Teacher>(
+                sql,
+                new
+                {
+                    FirstName = firstname,
+                    Lastname = secondname,
+                    OffsetRows = (page - 1) * pageSize,
+                    PageSize = pageSize
+                }).AsList();
+
+            totalRows = teachers.FirstOrDefault()?.TotalRowsCount ?? 0;
+
+            return teachers;
+
         }
 
         public List<Teacher> GetAll()

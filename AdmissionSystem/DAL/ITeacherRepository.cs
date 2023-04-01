@@ -1,4 +1,5 @@
 ﻿using AdmissionSystem.Models;
+using System;
 using System.Collections.Generic;
 
 namespace AdmissionSystem.DAL
@@ -10,5 +11,11 @@ namespace AdmissionSystem.DAL
         void Update(Teacher teacher);
         void Delete(int Id);
         Teacher GetTeacherById(int Id);
+
+        List<Teacher> Filter(
+            string firstname, string secondname,
+            out int totalRows,
+            int page = 1, int pageSize = 10,
+            string sortColumn = "TeacherId", bool sortDesc = false);
     }
 }

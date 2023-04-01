@@ -10,5 +10,6 @@ namespace AdmissionSystem.Models
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
         public byte[] Image { get; set; }
+        public int TotalRowsCount { get; set; } = 1;
     }
 }
