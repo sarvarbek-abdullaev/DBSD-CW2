@@ -7,11 +7,11 @@ namespace AdmissionSystem.DAL
 {
     public class StudentRepository : IStudentRepository
     {
-        private const string SQL_INSERT = @"insert into Student(FirstName, LastName, BirthDate, HasDebt, Level, Phone, Email, ClassId)
-                                values(@FirstName, @LastName, @BirthDate, @HasDebt, @Level, @Phone, @ClassId)
+        private const string SQL_INSERT = @"insert into Student(FirstName, LastName, BirthDate, Phone, Email, HasDebt, Level, ClassId)
+                                values(@FirstName, @LastName, @BirthDate, @Phone, @Email, @HasDebt, @Level, @ClassId)
                                 select SCOPE_IDENTITY()";
 
-        private const string SQL_GET_BY_ID = @"select StudentId, FirstName, LastName, BirthDate, HasDebt, Level, Phone, Email, ClassId
+        private const string SQL_GET_BY_ID = @"select StudentId, FirstName, LastName, BirthDate, Phone, Email, HasDebt, Level, ClassId
                                 from Student
                                 where StudentId = @StudentId";
 
@@ -84,12 +84,12 @@ namespace AdmissionSystem.DAL
             return students;
         }
 
-        public Student GetTeacherById(int id)
+        public Student GetStudentById(int id)
         {
             using var conn = new SqlConnection(ConnStr);
             using var cmd = conn.CreateCommand();
             cmd.CommandText = SQL_GET_BY_ID;
-            cmd.Parameters.AddWithValue("@TeacherId", id);
+            cmd.Parameters.AddWithValue("@StudentId", id);
 
             conn.Open();
             using var rdr = cmd.ExecuteReader();

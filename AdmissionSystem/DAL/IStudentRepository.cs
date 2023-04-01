@@ -9,6 +9,6 @@ namespace AdmissionSystem.DAL
         int Insert(Student student);
         void Update(Student student);
         void Delete(int Id);
-        Student GetTeacherById(int Id);
+        Student GetStudentById(int Id);
     }
 }

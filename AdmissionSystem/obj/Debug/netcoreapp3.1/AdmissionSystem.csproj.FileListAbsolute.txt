@@ -185,10 +185,11 @@ E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\X.PagedList.dll
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\X.PagedList.Mvc.Common.dll
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\bin\Debug\netcoreapp3.1\X.PagedList.Mvc.Core.dll
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\AdmissionSystem.MvcApplicationPartsAssemblyInfo.cs
-E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Student\Index.cshtml.g.cs
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Class\Index.cshtml.g.cs
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Class\Details.cshtml.g.cs
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Class\Create.cshtml.g.cs
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Student\Index.cshtml.g.cs
+E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Student\Details.cshtml.g.cs
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Student\Create.cshtml.g.cs
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Student\Edit.cshtml.g.cs
 E:\WIUT\DBSD\DBSD-CW2\AdmissionSystem\obj\Debug\netcoreapp3.1\Razor\Views\Student\Delete.cshtml.g.cs
