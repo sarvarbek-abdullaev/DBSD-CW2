@@ -157,5 +157,22 @@ namespace AdmissionSystem.DAL
             conn.Open();
             cmd.ExecuteNonQuery();
         }
+
+        public bool BatchInsert( List<Student> students )
+        {
+            try
+            {
+                foreach ( var student in students )
+                {
+                    Insert(student);
+                }
+                return true;
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace AdmissionSystem.DAL
         void Update(Student student);
         void Delete(int Id);
         Student GetStudentById(int Id);
+        bool BatchInsert( List<Student> students );
     }
 }

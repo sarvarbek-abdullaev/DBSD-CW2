@@ -4,7 +4,51 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Students</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Import" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label for="importFile" class="control-label">Import .json, .xml or .csv file </label>
+                <input name="importFile" class="form-control" type="file" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Import" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <form asp-action="ExportJSON" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="submit" value="Export JSON" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2">
+        <form asp-action="ExportXML" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="submit" value="Export XML" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2">
+        <form asp-action="ExportCSV" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="submit" value="Export CSV" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -46,7 +90,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.StudentId)
@@ -84,6 +128,6 @@
                 @Html.ActionLink("Delete", "Delete", new {  id=item.StudentId  })
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
