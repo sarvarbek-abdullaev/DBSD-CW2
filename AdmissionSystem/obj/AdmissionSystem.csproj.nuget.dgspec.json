@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj": {}
+    "C:\\Users\\Damir\\Desktop\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj": {}
   },
   "projects": {
-    "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj": {
+    "C:\\Users\\Damir\\Desktop\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Damir\\Desktop\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
         "projectName": "AdmissionSystem",
-        "projectPath": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
-        "packagesPath": "C:\\Users\\Abdullaev_2oo2\\.nuget\\packages\\",
-        "outputPath": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\obj\\",
+        "projectPath": "C:\\Users\\Damir\\Desktop\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
+        "packagesPath": "C:\\Users\\Damir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Damir\\Desktop\\DBSD-CW2\\AdmissionSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Abdullaev_2oo2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Damir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[30.0.1, )"
+            },
             "Dapper": {
               "target": "Package",
               "version": "[2.0.123, )"
@@ -84,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }

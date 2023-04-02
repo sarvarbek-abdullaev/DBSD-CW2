@@ -12,42 +12,35 @@ namespace AdmissionSystem
     {
         private const string DataDirectory = "|DataDirectory|";
         private string _appPath;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _appPath = Directory.GetCurrentDirectory();
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("CW")
+                    .Replace(DataDirectory, _appPath);
 
             services.AddScoped<ITeacherRepository>(
-                x => new TeacherRepository(
-                    Configuration.GetConnectionString("CW")
-                    .Replace(DataDirectory, _appPath)
-                )
+                x => new TeacherRepository(connectionString)
             );
             
             services.AddScoped<IStudentRepository>(
-                x => new StudentRepository(
-                    Configuration.GetConnectionString("CW")
-                    .Replace(DataDirectory, _appPath)
-                )
+                x => new StudentRepository(connectionString)
             );
             
             services.AddScoped<IClassRepository>(
-                x => new ClassRepository(
-                    Configuration.GetConnectionString("CW")
-                    .Replace(DataDirectory, _appPath)
-                )
+                x => new ClassRepository(connectionString)
             );
 
             services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             _appPath = Path.Combine(env.ContentRootPath, "AppData");
