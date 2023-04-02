@@ -8,14 +8,22 @@ namespace AdmissionSystem.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentRepository _repository;
-        public StudentController(IStudentRepository repository)
+        private readonly IClassRepository _class_repository;
+        public StudentController(IStudentRepository repository, IClassRepository class_repository)
         {
             _repository = repository;
+            _class_repository = class_repository;
         }
         // GET: StudentController
         public ActionResult Index()
         {
             var students = _repository.GetAll();
+
+            foreach (var student in students)
+            {
+                student.Class = _class_repository.GetClassById(student.ClassId);
+            }
+
             return View(students);
         }
 
@@ -23,12 +31,17 @@ namespace AdmissionSystem.Controllers
         public ActionResult Details(int id)
         {
             var student = _repository.GetStudentById(id);
+            student.Class = _class_repository.GetClassById(student.ClassId);
+
             return View(student);
         }
 
         // GET: StudentController/Create
         public ActionResult Create()
         {
+            var classes = _class_repository.GetAll();
+            ViewBag.Classes = classes;
+
             return View();
         }
 
@@ -52,6 +65,9 @@ namespace AdmissionSystem.Controllers
         public ActionResult Edit(int id)
         {
             var student = _repository.GetStudentById(id);
+
+            var classes = _class_repository.GetAll();
+            ViewBag.Classes = classes;
 
             return View(student);
         }
@@ -77,6 +93,7 @@ namespace AdmissionSystem.Controllers
         public ActionResult Delete(int id)
         {
             var student = _repository.GetStudentById(id);
+            student.Class = _class_repository.GetClassById(student.ClassId);
             return View(student);
         }
 

@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.HasDebt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClassId)
+                @Html.DisplayNameFor(model => model.Class.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -40,7 +40,7 @@
                 @Html.DisplayNameFor(model => model.BirthDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
+                @Html.DisplayNameFor(model => model.Photo)
             </th>
             <th></th>
         </tr>
@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.HasDebt)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ClassId)
+                @Html.DisplayFor(modelItem => item.Class.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
@@ -76,7 +76,7 @@
                 @Html.DisplayFor(modelItem => item.BirthDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                    @Html.DisplayFor(modelItem => item.Photo)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {  id=item.StudentId  }) |

@@ -1,4 +1,4 @@
-﻿USE [CW];
+﻿USE [DBSD_CW];
 GO
 set language english;
 GO

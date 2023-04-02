@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj": {}
+    "C:\\Users\\Abdullaev_2oo2\\Desktop\\DBSD-CW\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj": {}
   },
   "projects": {
-    "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj": {
+    "C:\\Users\\Abdullaev_2oo2\\Desktop\\DBSD-CW\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Abdullaev_2oo2\\Desktop\\DBSD-CW\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
         "projectName": "AdmissionSystem",
-        "projectPath": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
+        "projectPath": "C:\\Users\\Abdullaev_2oo2\\Desktop\\DBSD-CW\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
         "packagesPath": "C:\\Users\\Abdullaev_2oo2\\.nuget\\packages\\",
-        "outputPath": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\obj\\",
+        "outputPath": "C:\\Users\\Abdullaev_2oo2\\Desktop\\DBSD-CW\\DBSD-CW2\\AdmissionSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abdullaev_2oo2\\AppData\\Roaming\\NuGet\\NuGet.Config",

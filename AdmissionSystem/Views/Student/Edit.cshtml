@@ -22,16 +22,18 @@
                     <input class="form-check-input" asp-for="HasDebt" /> @Html.DisplayNameFor(model => model.HasDebt)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="ClassId" class="control-label"></label>
-                <input asp-for="ClassId" class="form-control" />
-                <span asp-validation-for="ClassId" class="text-danger"></span>
-            </div>
+           
+            @Html.DropDownListFor(m => m.ClassId
+            , new SelectList(ViewBag.Classes, "Id", "Name")
+            , "Select Gender"
+            , new { @class = "form-control"})
+            
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control" />
@@ -53,9 +55,9 @@
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <label asp-for="Photo" class="control-label"></label>
+                <input asp-for="Photo" class="form-control" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

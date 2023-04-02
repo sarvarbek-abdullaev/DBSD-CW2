@@ -8,5 +8,6 @@ namespace AdmissionSystem.Models
         public int Level { get; set; }
         public bool HasDebt { get; set; }
         public int ClassId { get; set; }
+        public Class Class { get; set; }
     }
 }
