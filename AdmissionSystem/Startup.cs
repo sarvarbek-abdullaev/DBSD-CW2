@@ -4,15 +4,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace AdmissionSystem
 {
     public class Startup
     {
+        private const string DataDirectory = "|DataDirectory|";
+        private string _appPath;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,16 +22,26 @@ namespace AdmissionSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var database = Configuration.GetConnectionString("CW");
 
-            services.AddSingleton<ITeacherRepository>(
-                r => new TeacherRepository(database)
+            services.AddScoped<ITeacherRepository>(
+                x => new TeacherRepository(
+                    Configuration.GetConnectionString("CW")
+                    .Replace(DataDirectory, _appPath)
+                )
             );
-            services.AddSingleton<IStudentRepository>(
-                r => new StudentRepository(database)
+            
+            services.AddScoped<IStudentRepository>(
+                x => new StudentRepository(
+                    Configuration.GetConnectionString("CW")
+                    .Replace(DataDirectory, _appPath)
+                )
             );
-            services.AddSingleton<IClassRepository>(
-                r => new ClassRepository(database)
+            
+            services.AddScoped<IClassRepository>(
+                x => new ClassRepository(
+                    Configuration.GetConnectionString("CW")
+                    .Replace(DataDirectory, _appPath)
+                )
             );
 
             services.AddControllersWithViews();
@@ -41,6 +50,8 @@ namespace AdmissionSystem
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            _appPath = Path.Combine(env.ContentRootPath, "AppData");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

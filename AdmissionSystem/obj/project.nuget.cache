@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GOg6k6YFLcSl3rm3o6FQvVPg/1IaAO6DczUI5P2c/GvHbkBdD0kmBXu+6U81oP3Jxyh7p8rlReo/7oEK8bq/yA==",
+  "dgSpecHash": "syLAb+3AT/AynE+eWSd3tkNXv7dNCzZfrJ9Y2xVicdMhORV3SX+6yAa0pzRWg+YX4llqkt3DjBpSBulus9jYcw==",
   "success": true,
-  "projectFilePath": "E:\\WIUT\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
+  "projectFilePath": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abdullaev_2oo2\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Abdullaev_2oo2\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

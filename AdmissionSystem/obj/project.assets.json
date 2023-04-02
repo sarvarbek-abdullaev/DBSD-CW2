@@ -9713,11 +9713,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\WIUT\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
+      "projectUniqueName": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
       "projectName": "AdmissionSystem",
-      "projectPath": "E:\\WIUT\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
+      "projectPath": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\AdmissionSystem.csproj",
       "packagesPath": "C:\\Users\\Abdullaev_2oo2\\.nuget\\packages\\",
-      "outputPath": "E:\\WIUT\\DBSD\\DBSD-CW2\\AdmissionSystem\\obj\\",
+      "outputPath": "E:\\DBSD\\DBSD-CW2\\AdmissionSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abdullaev_2oo2\\AppData\\Roaming\\NuGet\\NuGet.Config",
