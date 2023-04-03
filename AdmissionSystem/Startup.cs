@@ -30,7 +30,7 @@ namespace AdmissionSystem
                 x => new TeacherRepository(connectionString)
             );
             
-            services.AddScoped<IStudentRepository>(
+            services.AddScoped(
                 x => new StudentRepository(connectionString)
             );
             

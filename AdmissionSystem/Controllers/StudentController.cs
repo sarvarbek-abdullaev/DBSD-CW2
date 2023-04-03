@@ -7,24 +7,18 @@ using System.Globalization;
 using System.IO;
 using System.Xml.Serialization;
 using System;
-using Newtonsoft.Json;
 using CsvHelper;
 using System.Linq;
+using System.Text;
 
 namespace AdmissionSystem.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly IStudentRepository _repository;
-        public StudentController(IStudentRepository repository)
+        private readonly StudentRepository _repository;
+        public StudentController(StudentRepository repository)
         {
             _repository = repository;
-        }
-
-        public ActionResult Index()
-        {
-            var students = _repository.GetAll();
-            return View(students);
         }
 
         public ActionResult Details(int id)
@@ -94,6 +88,12 @@ namespace AdmissionSystem.Controllers
             }
         }
 
+        public ActionResult Index()
+        {
+            var students = _repository.GetAll();
+            return View(students);
+        }
+
         [HttpPost]
         public ActionResult Import( IFormFile importFile )
         {
@@ -134,59 +134,67 @@ namespace AdmissionSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public ActionResult ExportJSON()
+        public ActionResult Filter( StudentsFilterViewModel studentsFilterViewModel )
         {
-            var students = _repository.GetAll();
-
-            var memory = new MemoryStream();
-            var writer = new StreamWriter(memory);
-            var serializer = new JsonSerializer();
-            serializer.Serialize(writer, students);
-            writer.Flush();
-
-
-            memory.Position = 0;
-            if ( memory != Stream.Null )
-                return File(memory, "application/json", $"Export_{DateTime.Now}.json");
-
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                studentsFilterViewModel.Students = _repository.Filter(studentsFilterViewModel);
+                return View(studentsFilterViewModel);
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Filter));
+            }
         }
 
         [HttpPost]
-        public ActionResult ExportXML()
+        public ActionResult ExportCSV( StudentsFilterViewModel studentsFilterViewModel )
         {
-            var students = _repository.GetAll();
+            try
+            {
+                var students = _repository.Filter(studentsFilterViewModel);
+                var memory = new MemoryStream();
+                var writer = new StreamWriter(memory);
+                var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture);
+                csvWriter.WriteRecords(students);
+                writer.Flush();
 
-            var memory = new MemoryStream();
-            var writer = new StreamWriter(memory);
-            var serializer = new XmlSerializer(typeof(List<Student>));
-            serializer.Serialize(writer, students);
-            writer.Flush();
+                memory.Position = 0;
+                if ( memory != Stream.Null )
+                    return File(memory, "text/csv", $"Students_{DateTime.Now}.csv");
+            }
+            catch {}
 
-            memory.Position = 0;
-            if ( memory != Stream.Null )
-                return File(memory, "application/xml", $"Export_{DateTime.Now}.xml");
-
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Filter));
         }
 
         [HttpPost]
-        public ActionResult ExportCSV()
+        public ActionResult ExportJSON( StudentsFilterViewModel studentsFilterViewModel )
         {
-            var students = _repository.GetAll();
+            try
+            {
+                var json = _repository.ExportAsJSON(studentsFilterViewModel);
 
-            var memory = new MemoryStream();
-            var writer = new StreamWriter(memory);
-            var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture);
-            csvWriter.WriteRecords(students);
-            writer.Flush();
+                if (!string.IsNullOrWhiteSpace(json)) 
+                    return File(Encoding.UTF8.GetBytes(json), "application/json", $"Students_{DateTime.Now}.json");
+            } catch {}
+            
+            return RedirectToAction(nameof(Filter));
+        }
 
-            memory.Position = 0;
-            if ( memory != Stream.Null )
-                return File(memory, "text/csv", $"Export_{DateTime.Now}.csv");
+        [HttpPost]
+        public ActionResult ExportXML( StudentsFilterViewModel studentsFilterViewModel )
+        {
+            try
+            {
+                var xml = _repository.ExportAsXML(studentsFilterViewModel);
 
-            return RedirectToAction(nameof(Index));
+                if (!string.IsNullOrWhiteSpace(xml))
+                    return File(Encoding.UTF8.GetBytes(xml), "application/xml", $"Students_{DateTime.Now}.xml");
+
+            } catch {}
+
+            return RedirectToAction(nameof(Filter));
         }
     }
 }

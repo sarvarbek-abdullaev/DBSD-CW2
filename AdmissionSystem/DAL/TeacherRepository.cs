@@ -1,7 +1,5 @@
 ﻿using AdmissionSystem.Models;
 using Dapper;
-using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -59,17 +57,6 @@ namespace AdmissionSystem.DAL
 
         public List<Teacher> Filter(string firstname, string secondname, out int totalRows, int page = 1, int pageSize = 10, string sortColumn = "TeacherId", bool sortDesc = false)
         {
-            //using var conn = new SqlConnection(ConnStr);
-            //var teachers = conn.Query<Teacher>(
-            //    "TeacherFilter",
-            //    commandType: System.Data.CommandType.StoredProcedure,
-            //    param: new { FirstName = firstname, LastName = secondname, OffsetRows = (page - 1) * pageSize, PageSize = pageSize }
-            //    );
-
-            //totalRows = teachers.FirstOrDefault()?.TotalRowsCount ?? 0;
-
-            //return teachers.AsList();
-
             if (page <= 0)
                 page = 1;
 
