@@ -172,21 +172,6 @@ namespace AdmissionSystem.DAL
             command.ExecuteScalar();
         }
 
-        public void ImportCSV( string csv )
-        {
-            using SqlConnection connection = new SqlConnection(_connStr);
-
-            SqlCommand command = new SqlCommand("ImportStudentsCsv", connection);
-
-            command.CommandType = CommandType.StoredProcedure;
-
-            command.Parameters.AddWithValue("@csvString", csv);
-
-            connection.Open();
-
-            command.ExecuteScalar();
-        }
-
         public void ImportBulkStudents( IEnumerable<Student> students )
         {
             var dataTable = new DataTable();
