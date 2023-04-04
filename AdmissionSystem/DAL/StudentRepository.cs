@@ -278,9 +278,9 @@ namespace AdmissionSystem.DAL
             cmd.Parameters.AddWithValue("@Level", student.Level);
             cmd.Parameters.AddWithValue("@Phone", student.Phone);
             cmd.Parameters.AddWithValue("@Email", student.Email);
-            cmd.Parameters.AddWithValue("@Email", student.Email);
             cmd.Parameters.AddWithValue("@Image", student.Image ?? SqlBinary.Null);
             cmd.Parameters.AddWithValue("@StudentId", student.StudentId);
+            cmd.Parameters.AddWithValue("@ClassId", student.ClassId);
 
             conn.Open();
             cmd.ExecuteNonQuery();

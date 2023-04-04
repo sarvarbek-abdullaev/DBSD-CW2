@@ -108,9 +108,9 @@ namespace AdmissionSystem.Controllers
             try
             {
                 byte[] photoBytes = null;
-                if (model.Image != null)
+                if ( model.Image != null )
                 {
-                    using (var memory = new MemoryStream())
+                    using ( var memory = new MemoryStream() )
                     {
                         model.Image.CopyTo(memory);
                         photoBytes = memory.ToArray();
@@ -132,12 +132,10 @@ namespace AdmissionSystem.Controllers
                 };
 
                 _repository.Update(student);
-                return RedirectToAction(nameof(Index));
             }
-            catch(Exception ex)
-            {
-                return View();
-            }
+            catch() {}
+
+            return RedirectToAction(nameof(Index));
         }
 
         public ActionResult Delete(int id)
@@ -176,9 +174,11 @@ namespace AdmissionSystem.Controllers
         [HttpPost]
         public ActionResult Import( IFormFile importFile )
         {
-            if ( importFile == null ) return RedirectToAction(nameof(Index));
+            try
+            {
+                if ( importFile == null ) return RedirectToAction(nameof(Index));
 
-            string extension = System.IO.Path.GetExtension(importFile.FileName);
+                string extension = System.IO.Path.GetExtension(importFile.FileName);
 
                 using var stream = importFile.OpenReadStream();
 
@@ -202,6 +202,7 @@ namespace AdmissionSystem.Controllers
 
                     _repository.ImportBulkStudents(students);
                 }
+            } catch {}
 
             return RedirectToAction(nameof(Index));
         }
@@ -283,7 +284,7 @@ namespace AdmissionSystem.Controllers
                 }
             }
 
-            return NotFound();
+            return RedirectToAction(nameof(Filter));
         }
     }
 }

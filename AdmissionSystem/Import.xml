@@ -1,36 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfStudent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<ArrayOfStudent  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Student>
-    <FirstName>Damir</FirstName>
-    <LastName>Samatov</LastName>
-    <Phone>+999999999999</Phone>
-    <Email>00012071@wiut.uz</Email>
-    <BirthDate>2002-05-01T00:00:00</BirthDate>
-    <TotalRowsCount>1</TotalRowsCount>
-    <Level>1</Level>
+    <FirstName>Pavel</FirstName>
+    <LastName>Pochitaev</LastName>
+    <Email>Pavel@gmail.com</Email>
+    <Phone>+0987654</Phone>
+    <BirthDate>1999-02-04T00:00:00</BirthDate>
+    <Level>3</Level>
     <HasDebt>false</HasDebt>
     <ClassId>1</ClassId>
+    <Image/>
   </Student>
   <Student>
-    <FirstName>Sarvar</FirstName>
-    <LastName>Abdullaev</LastName>
-    <Phone>+999999999999</Phone>
-    <Email>00012071@wiut.uz</Email>
-    <BirthDate>2003-05-01T00:00:00</BirthDate>
-    <TotalRowsCount>1</TotalRowsCount>
-    <Level>1</Level>
-    <HasDebt>false</HasDebt>
+    <FirstName>Oybek</FirstName>
+    <LastName>Bakhadirov</LastName>
+    <Email>oybek@gmail.com</Email>
+    <Phone>+02422343254</Phone>
+    <BirthDate>2003-08-03T00:00:00</BirthDate>
+    <Level>2</Level>
+    <HasDebt>true</HasDebt>
     <ClassId>1</ClassId>
+    <Image/>
   </Student>
   <Student>
-    <FirstName>Diana</FirstName>
-    <LastName>Kolosova</LastName>
-    <Phone>+999999999999</Phone>
-    <Email>00012071@wiut.uz</Email>
-    <BirthDate>2003-05-01T00:00:00</BirthDate>
-    <TotalRowsCount>1</TotalRowsCount>
+    <FirstName>Mariya</FirstName>
+    <LastName>Nikolaeva</LastName>
+    <Email>masha@gmail.com</Email>
+    <Phone>+03453459765579</Phone>
+    <BirthDate>2015-07-04T00:00:00</BirthDate>
     <Level>1</Level>
     <HasDebt>false</HasDebt>
     <ClassId>1</ClassId>
+    <Image/>
+  </Student>
+  <Student>
+    <FirstName>Eldor</FirstName>
+    <LastName>Pulatov</LastName>
+    <Email>el@gmail.com</Email>
+    <Phone>+3432423123654</Phone>
+    <BirthDate>2001-02-04T00:00:00</BirthDate>
+    <Level>4</Level>
+    <HasDebt>false</HasDebt>
+    <ClassId>1</ClassId>
+    <Image/>
+  </Student>
+  <Student>
+    <FirstName>Bobur</FirstName>
+    <LastName>Ahmatov</LastName>
+    <Email>bobur@gmail.com</Email>
+    <Phone>+54356373554</Phone>
+    <BirthDate>2000-08-04T00:00:00</BirthDate>
+    <Level>1</Level>
+    <HasDebt>true</HasDebt>
+    <ClassId>1</ClassId>
+    <Image/>
   </Student>
 </ArrayOfStudent>
