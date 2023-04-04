@@ -1,4 +1,4 @@
-﻿@model AdmissionSystem.Models.Student
+﻿@model AdmissionSystem.Models.StudentCreateViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Level" class="control-label"></label>
@@ -23,9 +23,10 @@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="ClassId" class="control-label"></label>
-                <input asp-for="ClassId" class="form-control" />
-                <span asp-validation-for="ClassId" class="text-danger"></span>
+                @Html.DropDownListFor(m => m.ClassId,
+                new SelectList(ViewBag.Classes, "ClassId", "Name")
+                , "Select Class"
+                ,new { @class = "form-control"})
             </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
@@ -57,6 +58,11 @@
                 <input asp-for="Image" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <img src="@Url.Action("ShowImage", new { id = Model.StudentId})" width="400" />
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

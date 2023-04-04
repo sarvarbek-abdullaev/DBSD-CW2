@@ -15,31 +15,62 @@ namespace AdmissionSystem.Controllers
     public class StudentController : Controller
     {
         private readonly StudentRepository _repository;
-        public StudentController(StudentRepository repository)
+        private readonly IClassRepository _class_repository;
+
+        public StudentController(StudentRepository repository, IClassRepository class_repository)
         {
             _repository = repository;
+            _class_repository = class_repository;
         }
 
         public ActionResult Details(int id)
         {
             var student = _repository.GetStudentById(id);
+            student.Class = _class_repository.GetClassById(student.ClassId);
+
             return View(student);
         }
 
         public ActionResult Create()
         {
+            var classes = _class_repository.GetAll();
+            ViewBag.Classes = classes;
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Student student)
+        public ActionResult Create(StudentCreateViewModel model)
         {
             try
             {
+                byte[] photoBytes = null;
+                if (model.Image != null)
+                {
+                    using (var memory = new MemoryStream())
+                    {
+                        model.Image.CopyTo(memory);
+                        photoBytes = memory.ToArray();
+                    }
+                }
+
+                var student = new Student()
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    BirthDate = model.BirthDate,
+                    Email = model.Email,
+                    Phone = model.Phone,
+                    ClassId = model.ClassId,
+                    HasDebt = model.HasDebt,
+                    Level = model.Level,
+                    Image = photoBytes
+                };
+
                 int id = _repository.Insert(student);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
@@ -48,20 +79,62 @@ namespace AdmissionSystem.Controllers
         public ActionResult Edit(int id)
         {
             var student = _repository.GetStudentById(id);
+            student.Class = _class_repository.GetClassById(student.ClassId);
 
-            return View(student);
+            var classes = _class_repository.GetAll();
+            ViewBag.Classes = classes;
+
+            var model = new StudentCreateViewModel()
+            {
+                StudentId = student.StudentId,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                BirthDate = student.BirthDate,
+                Email = student.Email,
+                ClassId = student.ClassId,
+                Phone = student.Phone,
+                Level = student.Level,
+                HasDebt = student.HasDebt,
+                Class = student.Class
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, Student student)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, StudentCreateViewModel model)
         {
             try
             {
-                student.StudentId = id;
+                byte[] photoBytes = null;
+                if (model.Image != null)
+                {
+                    using (var memory = new MemoryStream())
+                    {
+                        model.Image.CopyTo(memory);
+                        photoBytes = memory.ToArray();
+                    }
+                }
+
+                var student = new Student()
+                {
+                    StudentId = id,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    BirthDate = model.BirthDate,
+                    Email = model.Email,
+                    Level = model.Level,
+                    ClassId = model.ClassId,
+                    Phone = model.Phone,
+                    HasDebt = model.HasDebt,
+                    Image = photoBytes
+                };
+
                 _repository.Update(student);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
@@ -70,6 +143,8 @@ namespace AdmissionSystem.Controllers
         public ActionResult Delete(int id)
         {
             var student = _repository.GetStudentById(id);
+            student.Class = _class_repository.GetClassById(student.ClassId);
+
             return View(student);
         }
 
@@ -90,6 +165,11 @@ namespace AdmissionSystem.Controllers
         public ActionResult Index()
         {
             var students = _repository.GetAll();
+            foreach (var student in students)
+            {
+                student.Class = _class_repository.GetClassById(student.ClassId);
+            }
+
             return View(students);
         }
 
@@ -187,6 +267,23 @@ namespace AdmissionSystem.Controllers
             } catch {}
 
             return RedirectToAction(nameof(Filter));
+        }
+
+        public ActionResult ShowImage(int? id)
+        {
+            if (id.HasValue)
+            {
+                var teacher = _repository.GetStudentById(id ?? -1);
+                if (teacher?.Image != null)
+                {
+                    return File(
+                        teacher.Image,
+                        "image/jpeg",
+                        $"student_{id}.jpg");
+                }
+            }
+
+            return NotFound();
         }
     }
 }
