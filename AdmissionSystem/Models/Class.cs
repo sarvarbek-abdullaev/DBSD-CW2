@@ -10,5 +10,6 @@ namespace AdmissionSystem.Models
         public int CourseId { get; set; }
         public int TeacherID { get; set; }
         public Teacher Teacher { get; set; }
+        public Course Course { get; set; }
     }
 }

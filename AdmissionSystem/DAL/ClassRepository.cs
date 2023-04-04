@@ -32,7 +32,7 @@ namespace AdmissionSystem.DAL
 
             using var conn = new SqlConnection(ConnStr);
             using var cmd = conn.CreateCommand();
-            cmd.CommandText = @"select ClassId, Name, Description, TeacherId
+            cmd.CommandText = @"select ClassId, Name, Description, TeacherId, CourseId
                                 from Class";
             conn.Open();
             using var rdr = cmd.ExecuteReader();
@@ -43,6 +43,8 @@ namespace AdmissionSystem.DAL
                 cs.Name = rdr.GetString("Name");
                 cs.Description = rdr.GetString("Description");
                 cs.TeacherID = rdr.GetInt32("TeacherId");
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CourseId")))
+                    cs.CourseId = rdr.GetInt32("CourseId");
 
                 employees.Add(cs);
             }
@@ -67,6 +69,9 @@ namespace AdmissionSystem.DAL
                 cs.Name = rdr.GetString("Name");
                 cs.Description = rdr.GetString("Description");
                 cs.TeacherID = rdr.GetInt32("TeacherId");
+                cs.CourseId = rdr.GetInt32("CourseId");
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CourseId")))
+                    cs.CourseId = rdr.GetInt32("CourseId");
 
                 return cs;
             }
@@ -84,11 +89,13 @@ namespace AdmissionSystem.DAL
             cmd.Parameters.AddWithValue("@Name", @class.Name);
             cmd.Parameters.AddWithValue("@Description", @class.Description);
             cmd.Parameters.AddWithValue("@TeacherId", @class.TeacherID);
+            cmd.Parameters.AddWithValue("@CourseId", @class.CourseId);
 
             conn.Open();
             var id = (decimal)cmd.ExecuteScalar();
 
             @class.TeacherID = (int)id;
+            @class.CourseId = (int)id;
 
             return (int)id;
         }
