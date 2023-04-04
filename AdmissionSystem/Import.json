@@ -1,0 +1,32 @@
+[
+  {
+    "FirstName": "Nazar",
+    "LastName": "Asadboev",
+    "Phone": "+65756635",
+    "Email": "00012071@wiut.uz",
+    "BirthDate": "2002-05-01T00:00:00",
+    "Level": 1,
+    "HasDebt": false,
+    "ClassId": 2
+  },
+  {
+    "FirstName": "Sarvar",
+    "LastName": "Ganiev",
+    "Phone": "+234254324",
+    "Email": "00012071@wiut.uz",
+    "BirthDate": "2003-05-01T00:00:00",
+    "Level": 1,
+    "HasDebt": true,
+    "ClassId": 1
+  },
+  {
+    "FirstName": "Sasha",
+    "LastName": "Tolstih",
+    "Phone": "+3435354353",
+    "Email": "1234564@wiut.uz",
+    "BirthDate": "2003-05-01T00:00:00",
+    "Level": 1,
+    "HasDebt": false,
+    "ClassId": 1
+  }
+]

@@ -39,7 +39,7 @@ namespace AdmissionSystem.DAL
             while (rdr.Read())
             {
                 var cs = new Class();
-                cs.Id = rdr.GetInt32(rdr.GetOrdinal("ClassId"));
+                cs.ClassId = rdr.GetInt32(rdr.GetOrdinal("ClassId"));
                 cs.Name = rdr.GetString("Name");
                 cs.Description = rdr.GetString("Description");
                 cs.TeacherID = rdr.GetInt32("TeacherId");
@@ -63,7 +63,7 @@ namespace AdmissionSystem.DAL
             {
                 //return MapReaderToEmployee(rdr);
                 var cs = new Class();
-                cs.Id = rdr.GetInt32(rdr.GetOrdinal("ClassId"));
+                cs.ClassId = rdr.GetInt32(rdr.GetOrdinal("ClassId"));
                 cs.Name = rdr.GetString("Name");
                 cs.Description = rdr.GetString("Description");
                 cs.TeacherID = rdr.GetInt32("TeacherId");

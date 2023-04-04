@@ -68,7 +68,7 @@ namespace AdmissionSystem.DAL
             return students;
         }
 
-        public IEnumerable<Student> Filter(StudentsFilterViewModel studentsFilterViewModel)
+        public IEnumerable<FilteredStudentRow> Filter(StudentsFilterViewModel studentsFilterViewModel)
         {
             using var connection = new SqlConnection(_connStr);
 
@@ -89,11 +89,10 @@ namespace AdmissionSystem.DAL
             };
 
             var sql = "FilterStudents";
-            var students = connection.Query<Student>(sql, parameters, commandType: System.Data.CommandType.StoredProcedure);
+            var filteredStudentRows = connection.Query<FilteredStudentRow>(sql, parameters, commandType: System.Data.CommandType.StoredProcedure);
 
-            return students;
+            return filteredStudentRows;
         }
-
 
         public string ExportAsXML( StudentsFilterViewModel studentsFilterViewModel )
         {
@@ -143,6 +142,43 @@ namespace AdmissionSystem.DAL
             return json;
         }
 
+        public void ImportJSON(string json)
+        {
+            using SqlConnection connection = new SqlConnection(_connStr);
+
+            SqlCommand command = new SqlCommand("ImportStudentsJson", connection);
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@jsonString", json);
+
+            connection.Open();
+
+            command.ExecuteScalar();
+        }
+
+        public void ImportXML( string xml )
+        {
+            using SqlConnection connection = new SqlConnection(_connStr);
+
+            SqlCommand command = new SqlCommand("ImportStudentsXml", connection);
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@xmlString", xml);
+
+            connection.Open();
+
+            command.ExecuteScalar();
+        }
+
+        public void ImportCSV( List<Student> students )
+        {
+            foreach ( var student in students )
+            {
+                Insert(student);
+            }
+        }
 
         public Student GetStudentById(int id)
         {
@@ -216,23 +252,6 @@ namespace AdmissionSystem.DAL
 
             conn.Open();
             cmd.ExecuteNonQuery();
-        }
-
-        public bool BatchInsert( List<Student> students )
-        {
-            try
-            {
-                foreach ( var student in students )
-                {
-                    Insert(student);
-                }
-                return true;
-            }
-            catch
-            {
-
-                return false;
-            }
         }
 
         public void Delete( int Id )

@@ -55,7 +55,7 @@ namespace AdmissionSystem.DAL
             cmd.ExecuteNonQuery();
         }
 
-        public List<Teacher> Filter(string firstname, string secondname, out int totalRows, int page = 1, int pageSize = 10, string sortColumn = "TeacherId", bool sortDesc = false)
+        public List<Teacher> Filter(string firstname, string secondname, int page = 1, int pageSize = 10, string sortColumn = "TeacherId", bool sortDesc = false)
         {
             if (page <= 0)
                 page = 1;
@@ -82,10 +82,7 @@ namespace AdmissionSystem.DAL
                     PageSize = pageSize
                 }).AsList();
 
-            totalRows = teachers.FirstOrDefault()?.TotalRowsCount ?? 0;
-
             return teachers;
-
         }
 
         public List<Teacher> GetAll()

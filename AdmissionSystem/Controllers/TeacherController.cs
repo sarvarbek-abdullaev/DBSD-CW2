@@ -23,8 +23,7 @@ namespace AdmissionSystem.Controllers
         {
             int totalRows;
             var teachers = _repository.Filter(
-                filterModel.FirstName, filterModel.LastName,
-                out totalRows, filterModel.Page, filterModel.PageSize
+                filterModel.FirstName, filterModel.LastName, filterModel.Page, filterModel.PageSize
                 );
 
             filterModel.Teachers = teachers;

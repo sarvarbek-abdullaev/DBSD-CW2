@@ -117,10 +117,13 @@
                 Birth Date
             </th>
             <th>
-                ClassId
+                Level
             </th>
             <th>
-                Level
+                Class
+            </th>
+            <th>
+                Teacher
             </th>
             <th>
                 HasDebt
@@ -130,7 +133,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ( var item in Model.Students )
+        @foreach ( var item in Model.FilteredStudentRows )
         {
             <tr>
                 <td>
@@ -152,10 +155,13 @@
                     @Html.DisplayFor(modelItem => item.BirthDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClassId)
+                    @Html.DisplayFor(modelItem => item.Level)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Level)
+                    @Html.DisplayFor(modelItem => item.ClassName)
+                </td>
+                <td>
+                    @(item.TeacherFirstName) @(item.TeacherLastName)
                 </td>
                 <td>
                     @(item.HasDebt)

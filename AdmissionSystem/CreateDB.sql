@@ -14,10 +14,11 @@ CREATE TABLE [dbo].[Teacher]
     [BirthDate] DATETIME NOT NULL,
     [IsMarried] BIT,
     [Address] NVARCHAR(70),
-    Salary INT,
+    [Salary] INT,
     [Phone] NVARCHAR(24),
     [Email] NVARCHAR(60) NOT NULL,
     [Photo] VARBINARY(MAX), 
+
     CONSTRAINT [PK_Teacher] PRIMARY KEY CLUSTERED ([TeacherId])
 );
 GO
@@ -30,6 +31,7 @@ CREATE TABLE [dbo].[Course]
     [Name] NVARCHAR(20) NOT NULL,
     [Description] NVARCHAR(100) NOT NULL,
     [Photo] VARBINARY(MAX),
+
     CONSTRAINT [PK_Course] PRIMARY KEY CLUSTERED ([CourseId])
 );
 

@@ -1,0 +1,4 @@
+StudentId,Level,HasDebt,ClassId,FirstName,LastName,Phone,Email,BirthDate,Image,TotalRowsCount
+18,1,False,1,Damir,Samatov,+999999999999,00012071@wiut.uz,05/01/2002 00:00:00,,1
+19,1,False,1,Sarvar,Abdullaev,+999999999999,00012071@wiut.uz,05/01/2003 00:00:00,,1
+20,1,False,1,Diana,Kolosova,+999999999999,00012071@wiut.uz,05/01/2003 00:00:00,,1

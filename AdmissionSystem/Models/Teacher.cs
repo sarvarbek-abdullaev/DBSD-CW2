@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AdmissionSystem.Models
+﻿namespace AdmissionSystem.Models
 {
     public class Teacher : Person
     {

@@ -14,7 +14,6 @@ namespace AdmissionSystem.DAL
 
         List<Teacher> Filter(
             string firstname, string secondname,
-            out int totalRows,
             int page = 1, int pageSize = 10,
             string sortColumn = "TeacherId", bool sortDesc = false);
     }

@@ -2,13 +2,10 @@
 using AdmissionSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Xml.Serialization;
 using System;
 using CsvHelper;
-using System.Linq;
 using System.Text;
 
 namespace AdmissionSystem.Controllers
@@ -101,35 +98,23 @@ namespace AdmissionSystem.Controllers
 
             string extension = System.IO.Path.GetExtension(importFile.FileName);
 
-            try
-            {
-                var students = new List<Student>();
+                using var stream = importFile.OpenReadStream();
+
+                using var reader = new StreamReader(stream);
 
                 if ( extension == ".json" )
                 {
-                    using var stream = importFile.OpenReadStream();
-                    using var reader = new StreamReader(stream);
-                    students = System.Text.Json.JsonSerializer.Deserialize<List<Student>>(reader.ReadToEnd());
+                    _repository.ImportJSON(reader.ReadToEnd());
                 }
                 else if ( extension == ".xml" )
                 {
-                    using var stream = importFile.OpenReadStream();
-                    using var reader = new StreamReader(stream);
-                    var serializer = new XmlSerializer(typeof(List<Student>));
-                    students = ( List<Student> )serializer.Deserialize(reader);
+                    _repository.ImportXML(reader.ReadToEnd());
 
                 }
                 else if ( extension == ".csv" )
                 {
-                    using var stream = importFile.OpenReadStream();
-                    using var reader = new StreamReader(stream);
-                    using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
-                    students = csvReader.GetRecords<Student>().ToList();
+                    //_repository.ImportCSV(reader.ReadToEnd());
                 }
-
-                _repository.BatchInsert(students);
-            }
-            catch { }
 
             return RedirectToAction(nameof(Index));
         }
@@ -138,7 +123,7 @@ namespace AdmissionSystem.Controllers
         {
             try
             {
-                studentsFilterViewModel.Students = _repository.Filter(studentsFilterViewModel);
+                studentsFilterViewModel.FilteredStudentRows = _repository.Filter(studentsFilterViewModel);
                 return View(studentsFilterViewModel);
             }
             catch
