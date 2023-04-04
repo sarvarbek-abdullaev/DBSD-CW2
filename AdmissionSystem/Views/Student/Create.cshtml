@@ -1,4 +1,4 @@
-﻿@model AdmissionSystem.Models.Student
+﻿@model AdmissionSystem.Models.StudentCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -6,27 +6,12 @@
 
 <h1>Create</h1>
 
-<h4>Student</h4>
+<h4>StudentCreateViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Level" class="control-label"></label>
-                <input asp-for="Level" class="form-control" />
-                <span asp-validation-for="Level" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="HasDebt" /> @Html.DisplayNameFor(model => model.HasDebt)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClassId" class="control-label"></label>
-                <input asp-for="ClassId" class="form-control" />
-                <span asp-validation-for="ClassId" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -46,6 +31,22 @@
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Level" class="control-label"></label>
+                <input asp-for="Level" class="form-control" />
+                <span asp-validation-for="Level" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasDebt" /> @Html.DisplayNameFor(model => model.HasDebt)
+                </label>
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(m => m.ClassId,
+                new SelectList(ViewBag.Classes, "ClassId", "Name")
+                , "Select Class"
+                ,new { @class = "form-control"})
             </div>
             <div class="form-group">
                 <label asp-for="BirthDate" class="control-label"></label>

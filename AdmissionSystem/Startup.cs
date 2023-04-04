@@ -23,19 +23,20 @@ namespace AdmissionSystem
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("CW")
-                    .Replace(DataDirectory, _appPath);
 
             services.AddScoped<ITeacherRepository>(
-                x => new TeacherRepository(connectionString)
+                x => new TeacherRepository(Configuration.GetConnectionString("CW")
+                    .Replace(DataDirectory, _appPath))
             );
             
             services.AddScoped(
-                x => new StudentRepository(connectionString)
+                x => new StudentRepository(Configuration.GetConnectionString("CW")
+                    .Replace(DataDirectory, _appPath))
             );
             
             services.AddScoped<IClassRepository>(
-                x => new ClassRepository(connectionString)
+                x => new ClassRepository(Configuration.GetConnectionString("CW")
+                    .Replace(DataDirectory, _appPath))
             );
 
             services.AddControllersWithViews();

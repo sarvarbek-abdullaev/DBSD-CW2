@@ -3,6 +3,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlTypes;
 using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
 using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
 
@@ -10,15 +11,15 @@ namespace AdmissionSystem.DAL
 {
     public class StudentRepository
     {
-        private const string SQL_INSERT = @"insert into Student(FirstName, LastName, BirthDate, Phone, Email, HasDebt, Level, ClassId)
-                                values(@FirstName, @LastName, @BirthDate, @Phone, @Email, @HasDebt, @Level, @ClassId)
+        private const string SQL_INSERT = @"insert into Student(FirstName, LastName, BirthDate, Phone, Email, HasDebt, Level, ClassId, Image)
+                                values(@FirstName, @LastName, @BirthDate, @Phone, @Email, @HasDebt, @Level, @ClassId, @Image)
                                 select SCOPE_IDENTITY()";
 
-        private const string SQL_GET_BY_ID = @"select StudentId, FirstName, LastName, BirthDate, Phone, Email, HasDebt, Level, ClassId
+        private const string SQL_GET_BY_ID = @"select StudentId, FirstName, LastName, BirthDate, Phone, Email, HasDebt, Level, ClassId, Image
                                 from Student
                                 where StudentId = @StudentId";
 
-        private const string SQL_UPDATE = @"update Teacher set
+        private const string SQL_UPDATE = @"update Student set
                                               FirstName = @FirstName, 
                                               LastName  = @LastName, 
                                               BirthDate  = @BirthDate,
@@ -26,7 +27,8 @@ namespace AdmissionSystem.DAL
                                               Level  = @Level,
                                               Phone  = @Phone,
                                               Email  = @Email,
-                                              ClassId  = @ClassId
+                                              ClassId  = @ClassId,
+                                              Image  = @Image
                                             where StudentId = @StudentId";
 
         private const string SQL_DELETE = @"delete from Student where StudentId = @StudentId";
@@ -44,7 +46,7 @@ namespace AdmissionSystem.DAL
 
             using var conn = new SqlConnection(_connStr);
             using var cmd = conn.CreateCommand();
-            cmd.CommandText = @"select StudentId, FirstName, LastName, BirthDate, HasDebt, Level, Phone, Email, ClassId
+            cmd.CommandText = @"select StudentId, FirstName, LastName, BirthDate, HasDebt, Level, Phone, Email, ClassId, Image
                                 from Student";
             conn.Open();
             using var rdr = cmd.ExecuteReader();
@@ -60,7 +62,9 @@ namespace AdmissionSystem.DAL
                 student.Phone = rdr.GetString("Phone");
                 student.Email = rdr.GetString("Email");
                 student.ClassId = rdr.GetInt32("ClassId");
-                //teacher.Image = rdr.GetByte("Image");
+
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Image")))
+                    student.Image = (byte[])rdr["Image"];
 
                 students.Add(student);
             }
@@ -202,7 +206,10 @@ namespace AdmissionSystem.DAL
                 student.Phone = rdr.GetString("Phone");
                 student.Email = rdr.GetString("Email");
                 student.ClassId = rdr.GetInt32("ClassId");
-                //teacher.Image = rdr.GetByte("Image");
+
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Image")))
+                    student.Image = (byte[])rdr["Image"];
+
                 return student;
             }
 
@@ -223,7 +230,7 @@ namespace AdmissionSystem.DAL
             cmd.Parameters.AddWithValue("@Phone", student.Phone);
             cmd.Parameters.AddWithValue("@Email", student.Email);
             cmd.Parameters.AddWithValue("@ClassId", student.ClassId);
-            //cmd.Parameters.AddWithValue("@Image", teacher.Image);
+            cmd.Parameters.AddWithValue("@Image", student.Image ?? SqlBinary.Null);
 
             conn.Open();
             var id = (decimal)cmd.ExecuteScalar();
@@ -247,7 +254,7 @@ namespace AdmissionSystem.DAL
             cmd.Parameters.AddWithValue("@Phone", student.Phone);
             cmd.Parameters.AddWithValue("@Email", student.Email);
             cmd.Parameters.AddWithValue("@Email", student.Email);
-            //cmd.Parameters.AddWithValue("@Image", teacher.Image);
+            cmd.Parameters.AddWithValue("@Image", student.Image ?? SqlBinary.Null);
             cmd.Parameters.AddWithValue("@StudentId", student.StudentId);
 
             conn.Open();

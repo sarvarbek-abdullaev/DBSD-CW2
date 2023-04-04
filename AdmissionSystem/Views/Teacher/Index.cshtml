@@ -70,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.BirthDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                <img src="@Url.Action("ShowImage", new { id = item.TeacherId})" width="100" />
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {  id=item.TeacherId  }) |

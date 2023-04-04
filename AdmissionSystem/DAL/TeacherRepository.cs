@@ -3,17 +3,18 @@ using Dapper;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 
 namespace AdmissionSystem.DAL
 {
     public class TeacherRepository : ITeacherRepository
     {
-        private const string SQL_INSERT = @"insert into Teacher(FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email)
-                                values(@FirstName, @LastName, @BirthDate, @IsMarried, @Salary, @Phone, @Email)
+        private const string SQL_INSERT = @"insert into Teacher(FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email, Image)
+                                values(@FirstName, @LastName, @BirthDate, @IsMarried, @Salary, @Phone, @Email, @Image)
                                 select SCOPE_IDENTITY()";
 
-        private const string SQL_GET_BY_ID = @"select TeacherId, FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email
+        private const string SQL_GET_BY_ID = @"select TeacherId, FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email, Image
                                 from Teacher
                                 where TeacherId = @TeacherId";
 
@@ -24,7 +25,8 @@ namespace AdmissionSystem.DAL
                                               IsMarried  = @IsMarried,
                                               Salary  = @Salary,
                                               Phone  = @Phone,
-                                              Email  = @Email
+                                              Email  = @Email,
+                                              Image  = @Image
                                             where TeacherId = @TeacherId";
         private const string SQL_DELETE = @"delete from Teacher where TeacherId = @TeacherId";
 
@@ -91,7 +93,7 @@ namespace AdmissionSystem.DAL
 
             using var conn = new SqlConnection(ConnStr);
             using var cmd = conn.CreateCommand();
-            cmd.CommandText = @"select TeacherId, FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email
+            cmd.CommandText = @"select TeacherId, FirstName, LastName, BirthDate, IsMarried, Salary, Phone, Email, Image
                                 from Teacher";
             conn.Open();
             using var rdr = cmd.ExecuteReader();
@@ -106,7 +108,9 @@ namespace AdmissionSystem.DAL
                 teacher.Salary = rdr.GetInt32("Salary");
                 teacher.Phone = rdr.GetString("Phone");
                 teacher.Email = rdr.GetString("Email");
-                //teacher.Image = rdr.GetByte("Image");
+
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Image")))
+                    teacher.Image = (byte[])rdr["Image"];
 
                 employees.Add(teacher);
             }
@@ -125,7 +129,6 @@ namespace AdmissionSystem.DAL
             using var rdr = cmd.ExecuteReader();
             if (rdr.Read())
             {
-                //return MapReaderToEmployee(rdr);
                 var teacher = new Teacher();
                 teacher.TeacherId = rdr.GetInt32(rdr.GetOrdinal("TeacherId"));
                 teacher.FirstName = rdr.GetString("FirstName");
@@ -135,6 +138,10 @@ namespace AdmissionSystem.DAL
                 teacher.Salary = rdr.GetInt32("Salary");
                 teacher.Phone = rdr.GetString("Phone");
                 teacher.Email = rdr.GetString("Email");
+
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Image")))
+                    teacher.Image = (byte[])rdr["Image"];
+
                 return teacher;
             }
 
@@ -154,7 +161,7 @@ namespace AdmissionSystem.DAL
             cmd.Parameters.AddWithValue("@Salary", teacher.Salary);
             cmd.Parameters.AddWithValue("@Phone", teacher.Phone);
             cmd.Parameters.AddWithValue("@Email", teacher.Email);
-            //cmd.Parameters.AddWithValue("@Image", teacher.Image);
+            cmd.Parameters.AddWithValue("@Image", teacher.Image ?? SqlBinary.Null);
 
             conn.Open();
             var id = (decimal)cmd.ExecuteScalar();
@@ -178,6 +185,7 @@ namespace AdmissionSystem.DAL
             cmd.Parameters.AddWithValue("@Phone", teacher.Phone);
             cmd.Parameters.AddWithValue("@Email", teacher.Email);
             cmd.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
+            cmd.Parameters.AddWithValue("@Image", teacher.Image ?? SqlBinary.Null);
 
             conn.Open();
             cmd.ExecuteNonQuery();
