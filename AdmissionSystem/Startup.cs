@@ -39,6 +39,11 @@ namespace AdmissionSystem
                     .Replace(DataDirectory, _appPath))
             );
 
+            services.AddScoped<ICourseRepository>(
+               x => new CourseRepository(Configuration.GetConnectionString("CW")
+                   .Replace(DataDirectory, _appPath))
+           );
+
             services.AddControllersWithViews();
         }
 

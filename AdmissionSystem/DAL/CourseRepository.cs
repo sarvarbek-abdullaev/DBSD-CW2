@@ -9,88 +9,82 @@ using System.Linq;
 
 namespace AdmissionSystem.DAL
 {
-    //public class CourseRepository : ICourseRepository
-    //{
-    //    private const string SQL_INSERT = @"insert into Class(Name, Description, TeacherId)
-    //                            values(@Name, @Description, @TeacherId)
-    //                            select SCOPE_IDENTITY()";
+    public class CourseRepository : ICourseRepository
+    {
+        private const string SQL_INSERT = @"insert into Course(Name, Description)
+                                values(@Name, @Description)
+                                select SCOPE_IDENTITY()";
 
-    //    private const string SQL_GET_BY_ID = @"select ClassId, Name, Description, TeacherId
-    //                            from Class
-    //                            where ClassId = @ClassId";
+        private const string SQL_GET_BY_ID = @"select CourseId, Name, Description
+                                from Course
+                                where CourseId = @CourseId";
 
-    //    private string ConnStr;
+        private string ConnStr;
 
-    //    public CourseRepository(string connStr)
-    //    {
-    //        ConnStr = connStr;
-    //    }
+        public CourseRepository(string connStr)
+        {
+            ConnStr = connStr;
+        }
 
-    //    public List<Class> GetAll()
-    //    {
-    //        var employees = new List<Class>();
+        public List<Course> GetAll()
+        {
+            var courses = new List<Course>();
 
-    //        using var conn = new SqlConnection(ConnStr);
-    //        using var cmd = conn.CreateCommand();
-    //        cmd.CommandText = @"select ClassId, Name, Description, TeacherId
-    //                            from Class";
-    //        conn.Open();
-    //        using var rdr = cmd.ExecuteReader();
-    //        while (rdr.Read())
-    //        {
-    //            var cs = new Class();
-    //            cs.Id = rdr.GetInt32(rdr.GetOrdinal("ClassId"));
-    //            cs.Name = rdr.GetString("Name");
-    //            cs.Description = rdr.GetString("Description");
-    //            cs.TeacherID = rdr.GetInt32("TeacherId");
+            using var conn = new SqlConnection(ConnStr);
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = @"select CourseId, Name, Description
+                                from Course";
+            conn.Open();
+            using var rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                var course = new Course();
+                course.CourseId = rdr.GetInt32(rdr.GetOrdinal("CourseId"));
+                course.Name = rdr.GetString("Name");
+                course.Description = rdr.GetString("Description");
 
-    //            employees.Add(cs);
-    //        }
+                courses.Add(course);
+            }
 
-    //        return employees;
-    //    }
+            return courses;
+        }
 
-    //    public Class GetClassById(int id)
-    //    {
-    //        using var conn = new SqlConnection(ConnStr);
-    //        using var cmd = conn.CreateCommand();
-    //        cmd.CommandText = SQL_GET_BY_ID;
-    //        cmd.Parameters.AddWithValue("@ClassId", id);
+        public Course GetCourseById(int id)
+        {
+            using var conn = new SqlConnection(ConnStr);
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = SQL_GET_BY_ID;
+            cmd.Parameters.AddWithValue("@courseId", id);
 
-    //        conn.Open();
-    //        using var rdr = cmd.ExecuteReader();
-    //        if (rdr.Read())
-    //        {
-    //            //return MapReaderToEmployee(rdr);
-    //            var cs = new Class();
-    //            cs.Id = rdr.GetInt32(rdr.GetOrdinal("ClassId"));
-    //            cs.Name = rdr.GetString("Name");
-    //            cs.Description = rdr.GetString("Description");
-    //            cs.TeacherID = rdr.GetInt32("TeacherId");
+            conn.Open();
+            using var rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                var course = new Course();
+                course.CourseId = rdr.GetInt32(rdr.GetOrdinal("CourseId"));
+                course.Name = rdr.GetString("Name");
+                course.Description = rdr.GetString("Description");
 
-    //            return cs;
-    //        }
+                return course;
+            }
 
-    //        return null;
-    //    }
+            return null;
+        }
 
-    //    public int Insert(Class @class)
-    //    {
-    //        using var conn = new SqlConnection(ConnStr);
-    //        using var cmd = conn.CreateCommand();
-    //        cmd.CommandText = SQL_INSERT;
+        public int Insert(Course course)
+        {
+            using var conn = new SqlConnection(ConnStr);
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = SQL_INSERT;
 
 
-    //        cmd.Parameters.AddWithValue("@Name", @class.Name);
-    //        cmd.Parameters.AddWithValue("@Description", @class.Description);
-    //        cmd.Parameters.AddWithValue("@TeacherId", @class.TeacherID);
+            cmd.Parameters.AddWithValue("@Name", course.Name);
+            cmd.Parameters.AddWithValue("@Description", course.Description);
 
-    //        conn.Open();
-    //        var id = (decimal)cmd.ExecuteScalar();
+            conn.Open();
+            var id = (decimal)cmd.ExecuteScalar();
 
-    //        @class.TeacherID = (int)id;
-
-    //        return (int)id;
-    //    }
-    //}
+            return (int)id;
+        }
+    }
 }

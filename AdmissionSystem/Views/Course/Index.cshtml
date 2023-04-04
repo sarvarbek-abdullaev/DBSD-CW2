@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AdmissionSystem.Models.Class>
+﻿@model IEnumerable<AdmissionSystem.Models.Course>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,21 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ClassId)
+                @Html.DisplayNameFor(model => model.CourseId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @* @Html.DisplayNameFor(model => model.TeacherID) *@
-                Teacher Name
-            </th>
-            <th>
-                @* @Html.DisplayNameFor(model => model.Course.Name) *@
-                Course.Name
             </th>
             <th></th>
         </tr>
@@ -36,7 +28,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ClassId)
+                @Html.DisplayFor(modelItem => item.CourseId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -45,13 +37,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Teacher.FirstName)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Course.Name)
-                </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new {  id=item.ClassId  })
+                @Html.ActionLink("Details", "Details", new {  id=item.CourseId  }) |
             </td>
         </tr>
 }
