@@ -195,3 +195,77 @@ BEGIN
 END
 
 GO
+
+CREATE OR ALTER PROCEDURE ImportStudentsCsv 
+    @csvString NVARCHAR(MAX)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @SQL NVARCHAR(MAX)
+
+    SET @SQL = 'CREATE TABLE #TempTable ('
+              + 'RowID INT IDENTITY(1,1) PRIMARY KEY, '
+              + 'CSVData NVARCHAR(MAX)'
+              + ')'
+    EXEC (@SQL)
+
+    SET @SQL = 'INSERT INTO #TempTable (CSVData) VALUES ' + @csvString
+    EXEC (@SQL)
+
+    SET @SQL = 'BULK INSERT Student ' + ' 
+                FROM ''' + 'SELECT CSVData FROM #TempTable' + ''' 
+                WITH 
+                (
+                    FIRSTROW = 1, 
+                    FIELDTERMINATOR = '','', 
+                    ROWTERMINATOR = ''\n'', 
+                    TABLOCK
+                )'
+
+    EXEC (@SQL)
+
+    SET @SQL = 'DROP TABLE #TempTable'
+    EXEC (@SQL)
+END
+
+GO
+
+create type StudentsImport as table (
+    [FirstName] NVARCHAR(40),
+    [LastName] NVARCHAR(20),
+    [BirthDate] DATETIME,
+    [Phone] NVARCHAR(24),
+    [Email] NVARCHAR(60),
+    [HasDebt] BIT,
+    [Level] INT,
+    [ClassId] INT
+)
+
+GO
+
+create or alter procedure ImportBulkStudents (@Students StudentsImport readonly) as
+begin
+  set nocount on
+
+  insert into Student(
+        [FirstName], 
+        [LastName], 
+        [BirthDate], 
+        [Phone],
+        [Email],
+        [HasDebt],
+        [Level],
+        [ClassId]
+    )
+  select    [FirstName], 
+            [LastName], 
+            [BirthDate], 
+            [Phone],
+            [Email],
+            [HasDebt],
+            [Level],
+            [ClassId] 
+  from @Students
+end
+

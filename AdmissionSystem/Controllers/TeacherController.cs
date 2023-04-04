@@ -21,7 +21,6 @@ namespace AdmissionSystem.Controllers
 
         public ActionResult Filter(TeacherFilterViewModel filterModel)
         {
-            int totalRows;
             var teachers = _repository.Filter(
                 filterModel.FirstName, filterModel.LastName, filterModel.Page, filterModel.PageSize
                 );

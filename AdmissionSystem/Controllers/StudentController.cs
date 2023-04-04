@@ -7,6 +7,8 @@ using System.IO;
 using System;
 using CsvHelper;
 using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdmissionSystem.Controllers
 {
@@ -113,7 +115,12 @@ namespace AdmissionSystem.Controllers
                 }
                 else if ( extension == ".csv" )
                 {
-                    //_repository.ImportCSV(reader.ReadToEnd());
+                    var students = new List<Student>();
+
+                    var serializer = new CsvReader(reader, CultureInfo.InvariantCulture);
+                    students = serializer.GetRecords<Student>().ToList<Student>();
+
+                    _repository.ImportBulkStudents(students);
                 }
 
             return RedirectToAction(nameof(Index));

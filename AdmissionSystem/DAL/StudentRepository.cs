@@ -172,12 +172,52 @@ namespace AdmissionSystem.DAL
             command.ExecuteScalar();
         }
 
-        public void ImportCSV( List<Student> students )
+        public void ImportCSV( string csv )
         {
-            foreach ( var student in students )
+            using SqlConnection connection = new SqlConnection(_connStr);
+
+            SqlCommand command = new SqlCommand("ImportStudentsCsv", connection);
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@csvString", csv);
+
+            connection.Open();
+
+            command.ExecuteScalar();
+        }
+
+        public void ImportBulkStudents( IEnumerable<Student> students )
+        {
+            var dataTable = new DataTable();
+            dataTable.Columns.Add("FirstName", typeof(string));
+            dataTable.Columns.Add("LastName", typeof(string));
+            dataTable.Columns.Add("BirthDate", typeof(DateTime));
+            dataTable.Columns.Add("Phone", typeof(string));
+            dataTable.Columns.Add("Email", typeof(string));
+            dataTable.Columns.Add("HasDebt", typeof(string));
+            dataTable.Columns.Add("Level", typeof(int));
+            dataTable.Columns.Add("ClassId", typeof(int));
+
+            foreach ( var s in students )
             {
-                Insert(student);
+                dataTable.Rows.Add(
+                        s.FirstName, 
+                        s.LastName, 
+                        s.BirthDate,
+                        s.Phone, 
+                        s.Email,
+                        s.HasDebt,
+                        s.Level,
+                        s.ClassId
+                    );
             }
+
+            using var conn = new SqlConnection(_connStr);
+            conn.Execute("ImportBulkStudents",
+                new { Students = dataTable },
+                commandType: CommandType.StoredProcedure
+            );
         }
 
         public Student GetStudentById(int id)
